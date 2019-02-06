@@ -33,11 +33,11 @@ public class ViewDefectController {
 	
 	
 	@ResponseBody 
-    public ArrayList<ViewDefects> getViewDefects(@PathVariable("pageno") int pageno,
+    public ArrayList<ViewDefects> getViewDefects( @PathVariable("pageno") int pageno,
     		HttpServletRequest req, HttpServletResponse res) throws ServletException {
 	
-		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-		return repository.getViewDefects(dateformat.format(Calendar.getInstance().getTime()),new PageRequest(pageno,10));
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getViewDefects(new PageRequest(pageno,10));
 		
 	}
 
