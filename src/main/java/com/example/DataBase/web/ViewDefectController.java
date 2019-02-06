@@ -1,12 +1,14 @@
 package com.example.DataBase.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.felix.bundlerepository.Repository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +35,9 @@ public class ViewDefectController {
 	@ResponseBody 
     public ArrayList<ViewDefects> getViewDefects(@PathVariable("pageno") int pageno,
     		HttpServletRequest req, HttpServletResponse res) throws ServletException {
-		
-		return repository.getViewDefects(new PageRequest(pageno,10));
+	
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getViewDefects(dateformat.format(Calendar.getInstance().getTime()),new PageRequest(pageno,10));
 		
 	}
 

@@ -61,8 +61,11 @@ public class LogFileRouting {
 		int Counter = 0;
 		Scanner scanFile = new Scanner(file);
 		String line = scanFile.nextLine().toString();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-		LogFile templogfile = new LogFile(file.getName(),format.format(Calendar.getInstance().getTime()),"now");
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm:ss");
+		
+		LogFile templogfile = new LogFile(file.getName(),dateformat.format(Calendar.getInstance().getTime()),timeformat.format(Calendar.getInstance().getTime()));
 		Solution tempsol = new Solution("Magic solution","turn of your device");
 		
 		

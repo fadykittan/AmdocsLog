@@ -32,7 +32,7 @@ public class LogFile {
 	public LogFile() {
 	}
 
-	public LogFile(String name, String ftime, String fdate) {
+	public LogFile(String name, String fdate, String ftime) {
 		super();
 		this.name = name;
 		this.ftime = ftime;
