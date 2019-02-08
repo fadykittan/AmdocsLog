@@ -24,7 +24,7 @@ public class ViewDefectController {
 	private DefectInstanceRepository repository;
 
 	@Autowired
-	private DefectInstanceRepository repository1;
+	private DefectInstanceRepository repositoryApp;
 
 	@RequestMapping("/ViewDefects/{pageSize}/{PageNumber}")
 
@@ -45,9 +45,15 @@ public class ViewDefectController {
 
 	
 
-	@RequestMapping("/ViewDefectsApp/{appName}")
-	public ArrayList<ViewDefectsApp> getViewDefectsApp(@PathVariable String appName) {
-		return repository1.getViewDefectsApp(appName);
+	@RequestMapping("/ViewDefectsApp/{appName}/{pageSize}/{PageNumber}")
+	public ArrayList<ViewDefectsApp> getViewDefectsApp(@PathVariable String appName, @PathVariable("pageSize") int pageSize,
+			@PathVariable("PageNumber") int pageNumber) throws ServletException{
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		int limit = pageSize;
+		int offset = pageNumber - 1;
+		offset = offset * limit;
+		return repositoryApp.getViewDefectsApp(appName,dateformat.format(Calendar.getInstance().getTime()), limit, offset);
 
 	}
 

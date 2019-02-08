@@ -30,7 +30,7 @@ public interface DefectInstanceRepository extends CrudRepository<DefectInstance,
 	ArrayList<ViewDefects> getViewDefects(@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
 	
 	@Query(nativeQuery = true)
-	ArrayList<ViewDefectsApp> getViewDefectsApp(@Param("appName") String appName);
+	ArrayList<ViewDefectsApp> getViewDefectsApp(@Param("appName") String appName,@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
 	//
 	@Query(nativeQuery = true)
 	ArrayList<SeverityPercentApp> getSeverityPercentApp(@Param("appName1") String appName1);
