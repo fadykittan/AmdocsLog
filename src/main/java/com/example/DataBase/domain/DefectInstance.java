@@ -117,7 +117,8 @@ import javax.persistence.ColumnResult;
 @NamedNativeQuery(name = "DefectInstance.getViewDefects", 
 query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "
 		+"from app ap, defect d, defect_instance di, solution s, log_file l " 
-		+"where ap.id=di.appid and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid", resultSetMapping = "DefectViewMapping")
+		+"where ap.id=di.appid and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and ((l.fdate)=:todayDate)"
+		+"LIMIT (:limit) OFFSET (:offset)", resultSetMapping = "DefectViewMapping")
 
 
 
@@ -136,7 +137,7 @@ query = "select ap.name, count(*) As defnum,"
 +" SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Warning') THEN 1 ELSE 0 END) AS warning"
 +" from app ap, defect_instance di, defect d"
 +" where ap.id=di.appid and d.id=di.defectid"
-+" group by ap.name", resultSetMapping = "AppPercentMapping")
++" group by ap.name",resultSetMapping = "AppPercentMapping")
 
 @NamedNativeQuery(name = "DefectInstance.getViewDefectsApp", 
 query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "

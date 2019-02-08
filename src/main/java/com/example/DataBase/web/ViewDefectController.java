@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,28 +23,32 @@ public class ViewDefectController {
 	@Autowired
 	private DefectInstanceRepository repository;
 
-@Autowired
+	@Autowired
 	private DefectInstanceRepository repository1;
 
+	@RequestMapping("/ViewDefects/{pageSize}/{PageNumber}")
+
+	@ResponseBody
+	public ArrayList<ViewDefects> getViewDefects(@PathVariable("pageSize") int pageSize,
+			@PathVariable("PageNumber") int pageNumber) throws ServletException {
+
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+//		if (Integer.parseInt(date) < 1 || pageSize < 1 || pageNumber < 1) {
+//			return repository.getViewDefects(date, 999, 0);
+//		} else {
+			int limit = pageSize;
+			int offset = pageNumber - 1;
+			offset = offset * limit;
+			return repository.getViewDefects(dateformat.format(Calendar.getInstance().getTime()), limit, offset);
+		}
+
 	
-	
-	@RequestMapping("/ViewDefects/pages/{pageno}")
-	
-	
-	@ResponseBody 
-    public ArrayList<ViewDefects> getViewDefects( @PathVariable("pageno") int pageno,
-    		HttpServletRequest req, HttpServletResponse res) throws ServletException {
-	
-		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-		return repository.getViewDefects(new PageRequest(pageno,10));
-		
-	}
 
 	@RequestMapping("/ViewDefectsApp/{appName}")
 	public ArrayList<ViewDefectsApp> getViewDefectsApp(@PathVariable String appName) {
 		return repository1.getViewDefectsApp(appName);
-		
+
 	}
 
 }
-
