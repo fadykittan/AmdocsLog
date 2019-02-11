@@ -35,7 +35,6 @@ import javax.persistence.ColumnResult;
 	    }
 	)
 
-
 @SqlResultSetMapping(
 		name="SeverityPercentMapping",
 	    classes={
@@ -110,16 +109,75 @@ import javax.persistence.ColumnResult;
 	        )
 	    }
 	)
+//---------------------------------------
+@SqlResultSetMapping(
+		name="DefectViewSeverityMapping",
+	    classes={
+	        @ConstructorResult(
+	        		targetClass=ViewDefects.class,
+	            columns={
+	            	@ColumnResult(name="id", type = long.class),
+	            	@ColumnResult(name="name", type = String.class),
+	                @ColumnResult(name="type", type = String.class),
+	                @ColumnResult(name="error_code", type = String.class),
+	                @ColumnResult(name="severity", type = String.class),
+	                @ColumnResult(name="sname", type = String.class)
+	            }
+	        )
+	    }
+	)
+
+@SqlResultSetMapping(
+		name="SeverityPercentSeverityMapping",
+	    classes={
+	        @ConstructorResult(
+	        		targetClass=SeverityPercentSeverity.class,
+	            columns={
+	                @ColumnResult(name="error_code", type = String.class),
+	                @ColumnResult(name="defnum", type = BigInteger.class),
+	                @ColumnResult(name="percentage", type = String.class)
+	            }
+	        )
+	    }
+	)
+
+@SqlResultSetMapping(
+        name="AppPercentSeverityMapping",
+        classes={
+            @ConstructorResult(
+                    targetClass=AppPercentSeverity.class,
+                columns={
+                    @ColumnResult(name="name", type = String.class),
+                    @ColumnResult(name="defnum", type = BigInteger.class),
+                    @ColumnResult(name="percentage", type = String.class),
+                    @ColumnResult(name="critical", type = BigInteger.class),
+                    @ColumnResult(name="error", type = BigInteger.class),
+                    @ColumnResult(name="warning", type = BigInteger.class)
+                }
+            )
+        }
+    )
+
+@SqlResultSetMapping(
+        name="WeeklyViewMapping",
+        classes={
+            @ConstructorResult(
+                    targetClass=WeeklyView.class,
+                columns={
+                    @ColumnResult(name="app_name", type = String.class),
+                    @ColumnResult(name="total_weekly", type = int.class)
+                }
+            )
+        }
+    )
 
 //------------------------------------------------------sql query---------------------------------------------------------------------
 
 
 @NamedNativeQuery(name = "DefectInstance.getViewDefects", 
-query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "
-		+"from app ap, defect d, defect_instance di, solution s, log_file l " 
-		+"where ap.id=di.appid and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and ((l.fdate)=:todayDate)"
-		+"LIMIT (:limit) OFFSET (:offset)", resultSetMapping = "DefectViewMapping")
-
+		query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "
+		+ "from app ap, defect d, defect_instance di, solution s"
+		+ " where ap.id=di.appid and d.id=di.defectid and s.id=d.idsolution", resultSetMapping = "DefectViewMapping")
 
 
 @NamedNativeQuery(name = "DefectInstance.getSeverityPercent",
@@ -137,13 +195,15 @@ query = "select ap.name, count(*) As defnum,"
 +" SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Warning') THEN 1 ELSE 0 END) AS warning"
 +" from app ap, defect_instance di, defect d"
 +" where ap.id=di.appid and d.id=di.defectid"
-+" group by ap.name",resultSetMapping = "AppPercentMapping")
++" group by ap.name", resultSetMapping = "AppPercentMapping")
+
+//--------------------------------------------------------------
 
 @NamedNativeQuery(name = "DefectInstance.getViewDefectsApp", 
 query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "
-+ "from app ap, defect d, defect_instance di, solution s , log_file l"
-+ " where ((ap.name)=:appName) and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and  ((l.fdate)=:todayDate) "
-+" LIMIT (:limit) OFFSET (:offset)", resultSetMapping = "DefectViewAppMapping")
+		+ "from app ap, defect d, defect_instance di, solution s , log_file l"
+		+ " where ((ap.name)=:appName) and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and  ((l.fdate)=:todayDate) "
+		+" LIMIT (:limit) OFFSET (:offset)", resultSetMapping = "DefectViewAppMapping")
 
 @NamedNativeQuery(name = "DefectInstance.getSeverityPercentApp",
 query ="select d.severity, count(*) As defnum,concat(cast(cast( count(*) as float)/ cast((select count(*) from defect_instance di) as float)*100 as decimal(7,2)),'%') AS percentage"
@@ -157,6 +217,36 @@ query = "select d.error_code, count(*) As defnum,concat(cast(cast( count(*) as f
 + " where ap.id=di.appid and ((ap.name)=:appName2) and d.id=di.defectid"
 + " group by error_code ", resultSetMapping = "AppPercentAppMapping")
 //and d.app_name=ap.name
+
+//----------------------------------------------------
+@NamedNativeQuery(name = "DefectInstance.getViewDefectsSeverity", 
+query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "
++ "from app ap, defect d, defect_instance di, solution s"
++ " where ap.id=di.appid and d.id=di.defectid and s.id=d.idsolution and ((d.severity)=:severityName) ", resultSetMapping = "DefectViewSeverityMapping")
+//and ((d.severity)=:severityName)
+
+@NamedNativeQuery(name = "DefectInstance.getSeverityPercentSeverity", 
+query = "select d.error_code, count(*) As defnum,concat(cast(cast( count(*) as float)/ cast((select count(*) from defect_instance di) as float)*100 as decimal(7,2)),'%') AS percentage"
++ " from app ap, defect_instance di, defect d" 
++ " where ap.id=di.appid and ((d.severity)=:severityName1) and d.id=di.defectid"
++ " group by error_code ", resultSetMapping = "SeverityPercentSeverityMapping")
+
+@NamedNativeQuery(name = "DefectInstance.getAppPercentSeverity",
+query = "select ap.name, count(*) As defnum,"
++" concat(cast(cast( count(*) as float)/ cast((select count(*) from defect_instance di) as float)*100 as decimal(7,2)),'%') AS percentage,"
++" SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Critical' )  THEN 1 ELSE 0 END) AS critical,"
++" SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Error' )THEN 1 ELSE 0 END) AS error,"
++" SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Warning') THEN 1 ELSE 0 END) AS warning"
++" from app ap, defect_instance di, defect d"
++" where ap.id=di.appid and d.id=di.defectid and ((d.severity)=:severityName2)"
++" group by ap.name", resultSetMapping = "AppPercentSeverityMapping")
+//-----------------------------------------------------------------
+
+@NamedNativeQuery(name = "DefectInstance.getWeeklyView", 
+query = "select ap.name as app_name,  count(*) As total_weekly"
++ " from app ap, defect_instance di, defect d, log_file l" 
++ " where ap.id=di.appid and d.id=di.defectid and l."
++" group by ap.name" ,resultSetMapping = "WeeklyViewMapping")
 public class DefectInstance  {
 
 
