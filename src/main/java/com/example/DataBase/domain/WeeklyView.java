@@ -1,43 +1,47 @@
 package com.example.DataBase.domain;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+
 public class WeeklyView {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	private String appName;
-    private int totalWeekly;
-    //------------------------------------
+	private String severity;
+	private int total;
+    
+//----------------------------------------------------getters and setters-------------------------------------------------------------
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getAppName() {
-		return appName;
+	public String getSeverity() {
+		return severity;
 	}
-	public void setAppName(String appName) {
-		this.appName = appName;
+	public void setSeverity(String severity) {
+		this.severity = severity;
 	}
-	public int getTotalWeekly() {
-		return totalWeekly;
+	public int getTotal() {
+		return total;
 	}
-	public void setTotalWeekly(int totalWeekly) {
-		this.totalWeekly = totalWeekly;
+	public void setTotal(int total) {
+		this.total = total;
 	}
+
+//-------------------------------------------------------constructors------------------------------------------------------------------
 	
     public WeeklyView() {}
-	public WeeklyView(String appName, int totalWeekly) {
+	public WeeklyView(String severity, int total) {
 		super();
-		this.appName = appName;
-		this.totalWeekly = totalWeekly;
+		this.severity = severity;
+		this.setTotal(total);
 	}
+
+
 
 }

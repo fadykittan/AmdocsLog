@@ -17,11 +17,6 @@ public class SeverityPercentController {
 	@Autowired
 	private DefectInstanceRepository repository;
 	
-	@Autowired
-	private DefectInstanceRepository repository1;
-	
-	@Autowired
-	private DefectInstanceRepository repository2;
 
 	@RequestMapping("/SeverityPercent")
 	public ArrayList<SeverityPercent> getSeverityPercent() {
@@ -29,12 +24,12 @@ public class SeverityPercentController {
 	}
 	
 	@RequestMapping("/SeverityPercentApp/{appName1}")
-	public ArrayList<SeverityPercentApp> getSeverityPercentApp(@PathVariable String appName1) {
-		return repository1.getSeverityPercentApp(appName1);
+	public ArrayList<SeverityPercentApp> getSeverityPercentApp(@PathVariable String appName) {
+		return repository.getSeverityPercentApp(appName);
 	}
 	
-	@RequestMapping("/SeverityPercentSeverity/{severityName1}")
-	public ArrayList<SeverityPercentSeverity> getSeverityPercentSeverity(@PathVariable String severityName1) {
-		return repository2.getSeverityPercentSeverity(severityName1);
-	}
+//	@RequestMapping("/SeverityPercentSeverity/{severityName1}")
+//	public ArrayList<SeverityPercentSeverity> getSeverityPercentSeverity(@PathVariable String severityName) {
+//		return repository.getSeverityPercentSeverity(severityName);
+//	}
 }
