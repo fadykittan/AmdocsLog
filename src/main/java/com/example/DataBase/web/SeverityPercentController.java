@@ -23,7 +23,7 @@ public class SeverityPercentController {
 		return repository.getSeverityPercent();
 	}
 	
-	@RequestMapping("/SeverityPercentApp/{appName1}")
+	@RequestMapping("/SeverityPercentApp/{appName}")
 	public ArrayList<SeverityPercentApp> getSeverityPercentApp(@PathVariable String appName) {
 		return repository.getSeverityPercentApp(appName);
 	}

@@ -23,7 +23,7 @@ public class AppPercentController {
 		return repository.getAppPercent();
 	}
 	
-	@RequestMapping("/AppPercentApp/{appName2}")
+	@RequestMapping("/AppPercentApp/{appName}")
 	public ArrayList<AppPercentApp> getAppPercentApp(@PathVariable String appName) {
 		return repository.getAppPercentApp(appName);
 	}
