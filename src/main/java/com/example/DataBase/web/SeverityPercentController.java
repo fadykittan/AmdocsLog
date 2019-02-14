@@ -20,16 +20,19 @@ public class SeverityPercentController {
 
 	@RequestMapping("/SeverityPercent")
 	public ArrayList<SeverityPercent> getSeverityPercent() {
-		return repository.getSeverityPercent();
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getSeverityPercent(/*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
 	}
 	
 	@RequestMapping("/SeverityPercentApp/{appName}")
 	public ArrayList<SeverityPercentApp> getSeverityPercentApp(@PathVariable String appName) {
-		return repository.getSeverityPercentApp(appName);
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getSeverityPercentApp(appName,/*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
 	}
 	
-//	@RequestMapping("/SeverityPercentSeverity/{severityName1}")
-//	public ArrayList<SeverityPercentSeverity> getSeverityPercentSeverity(@PathVariable String severityName) {
-//		return repository.getSeverityPercentSeverity(severityName);
-//	}
+	@RequestMapping("/SeverityPercentSeverity/{severityName}")
+	public ArrayList<SeverityPercentSeverity> getSeverityPercentSeverity(@PathVariable String severityName) {
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getSeverityPercentSeverity(severityName, /*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
+	}
 }

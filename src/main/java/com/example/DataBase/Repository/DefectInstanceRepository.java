@@ -21,30 +21,40 @@ import com.example.DataBase.domain.ViewDefectsApp;
 
 public interface DefectInstanceRepository extends CrudRepository<DefectInstance, Long>{
 
-	
-	@Query(nativeQuery = true)
-	ArrayList<SeverityPercent> getSeverityPercent();
-
-	@Query(nativeQuery = true)
-	ArrayList<AppPercent> getAppPercent();
-	
+//----------------------------------------------------viewdefects/app/severity----------------------------------------------------------
 	@Query(nativeQuery = true)
 	ArrayList<ViewDefects> getViewDefects(@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
 	
 	@Query(nativeQuery = true)
 	ArrayList<ViewDefectsApp> getViewDefectsApp(@Param("appName") String appName,@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
-	//
-	@Query(nativeQuery = true)
-	ArrayList<SeverityPercentApp> getSeverityPercentApp(@Param("appName") String appName);
 	
 	@Query(nativeQuery = true)
-	ArrayList<AppPercentApp> getAppPercentApp(@Param("appName") String appName);
+	ArrayList<ViewDefectsApp> getViewDefectsSeverity(@Param("severityName") String appName,@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
 	
-//	@Query(nativeQuery = true)
-//	ArrayList<AppPercentSeverity> getAppPercentSeverity(@Param("severityName") String severityName);
-//
-//	@Query(nativeQuery = true)
-//	ArrayList<SeverityPercentSeverity> getSeverityPercentSeverity(@Param("severityName") String severityName);
+//----------------------------------------------------apppercent/app/severity----------------------------------------------------------	
+	
+	@Query(nativeQuery = true)
+	ArrayList<AppPercent> getAppPercent(@Param("todayDate") String todayDate);
+	
+	@Query(nativeQuery = true)
+	ArrayList<AppPercentApp> getAppPercentApp(@Param("appName") String appName, @Param("todayDate") String todayDate);
+	
+	@Query(nativeQuery = true)
+	ArrayList<AppPercentSeverity> getAppPercentSeverity(@Param("severityName") String severityName, @Param("todayDate") String todayDate);
+	
+//----------------------------------------------------severitypercent/app/severity----------------------------------------------------------	
+	
+	@Query(nativeQuery = true)
+	ArrayList<SeverityPercent> getSeverityPercent(@Param("todayDate") String todayDate);
+	
+	@Query(nativeQuery = true)
+	ArrayList<SeverityPercentApp> getSeverityPercentApp(@Param("appName") String severityName, @Param("todayDate") String todayDate);
+
+	@Query(nativeQuery = true)
+	ArrayList<SeverityPercentSeverity> getSeverityPercentSeverity(@Param("severityName") String severityName, @Param("todayDate") String todayDate);
+	
+
+	
 
 	
 }

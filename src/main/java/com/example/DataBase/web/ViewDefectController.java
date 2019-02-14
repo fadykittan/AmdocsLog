@@ -24,22 +24,22 @@ public class ViewDefectController {
 	@Autowired
 	private DefectInstanceRepository repositoryApp;
 
+	@Autowired
+	private DefectInstanceRepository repositorySeverity;
+	
 	@RequestMapping("/ViewDefects/{pageSize}/{PageNumber}")
 
 	@ResponseBody
 	public ArrayList<ViewDefects> getViewDefects(@PathVariable("pageSize") int pageSize,
 			@PathVariable("PageNumber") int pageNumber) throws ServletException {
 
-		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-
-//		if (Integer.parseInt(date) < 1 || pageSize < 1 || pageNumber < 1) {
-//			return repository.getViewDefects(date, 999, 0);
-//		} else {
-			int limit = pageSize;
-			int offset = pageNumber - 1;
-			offset = offset * limit;
-			return repository.getViewDefects(/*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11", limit, offset);
-		}
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		int limit = pageSize;
+		int offset = pageNumber - 1;
+		offset = offset * limit;
+		return repository.getViewDefects(/* dateformat.format(Calendar.getInstance().getTime()) */"2019-02-11", limit,
+				offset);
+	}
 
 	
 
@@ -47,7 +47,7 @@ public class ViewDefectController {
 	public ArrayList<ViewDefectsApp> getViewDefectsApp(@PathVariable String appName, @PathVariable("pageSize") int pageSize,
 			@PathVariable("PageNumber") int pageNumber) throws ServletException{
 		
-		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		int limit = pageSize;
 		int offset = pageNumber - 1;
 		offset = offset * limit;
@@ -55,4 +55,16 @@ public class ViewDefectController {
 
 	}
 
+	
+	@RequestMapping("/ViewDefectsSeverity/{severityName}/{pageSize}/{PageNumber}")
+	public ArrayList<ViewDefectsApp> getViewDefectsSeverity(@PathVariable String severityName, @PathVariable("pageSize") int pageSize,
+			@PathVariable("PageNumber") int pageNumber) throws ServletException{
+		
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		int limit = pageSize;
+		int offset = pageNumber - 1;
+		offset = offset * limit;
+		return repositorySeverity.getViewDefectsSeverity(severityName,/*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11", limit, offset);
+
+	}
 }

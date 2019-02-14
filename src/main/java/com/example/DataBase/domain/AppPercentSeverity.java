@@ -6,29 +6,10 @@ public class AppPercentSeverity {
 	private String name;
 	private BigInteger defnum;
 	private String percentage;
-	private BigInteger critical;
-	private BigInteger error;
-	private BigInteger warning;
+	
 //-------------------------------------------------getters and setters-------------------------------------------------------------
 	
-	public BigInteger getCritical() {
-		return critical;
-	}
-	public void setCritical(BigInteger critical) {
-		this.critical = critical;
-	}
-	public BigInteger getError() {
-		return error;
-	}
-	public void setError(BigInteger error) {
-		this.error = error;
-	}
-	public BigInteger getWarning() {
-		return warning;
-	}
-	public void setWarning(BigInteger warning) {
-		this.warning = warning;
-	}
+
 	public String getName() {
 		return name;
 	}
@@ -52,14 +33,12 @@ public class AppPercentSeverity {
 	
 	public AppPercentSeverity() {}
 	
-	public AppPercentSeverity(String name, BigInteger defnum, String percentage,BigInteger critical ,BigInteger error ,BigInteger warning) {
+	public AppPercentSeverity(String name, BigInteger defnum, String percentage) {
 		super();
 		this.name = name;
 		this.defnum = defnum;
 		this.percentage = percentage;
-		this.critical = critical;
-		this.error = error;
-		this.warning = warning;
+		
 		
 }
 }

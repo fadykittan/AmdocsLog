@@ -1,5 +1,6 @@
 package com.example.DataBase.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +21,21 @@ public class AppPercentController {
 
 	@RequestMapping("/AppPercent")
 	public ArrayList<AppPercent> getAppPercent() {
-		return repository.getAppPercent();
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getAppPercent(/*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
 	}
 	
 	@RequestMapping("/AppPercentApp/{appName}")
 	public ArrayList<AppPercentApp> getAppPercentApp(@PathVariable String appName) {
-		return repository.getAppPercentApp(appName);
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getAppPercentApp(appName, /*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
 	}
 	
-//	@RequestMapping("/AppPercentSeverity/{severityName2}")
-//	public ArrayList<AppPercentSeverity> getAppPercentSeverity(@PathVariable String severityName) {
-//		return repository.getAppPercentSeverity(severityName);
-//	}
+	@RequestMapping("/AppPercentSeverity/{severityName}")
+	public ArrayList<AppPercentSeverity> getAppPercentSeverity(@PathVariable String severityName) {
+		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getAppPercentSeverity(severityName, /*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
+	}
 
 }
 
