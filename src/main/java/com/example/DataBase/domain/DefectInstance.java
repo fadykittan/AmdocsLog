@@ -159,7 +159,20 @@ import javax.persistence.ColumnResult;
 	        )
 	    }
 	)
+//------------------------------------------------------mapping for weekly------------------------------------------------------------
 
+@SqlResultSetMapping(
+	       name="WeeklyViewMapping",
+	       classes={
+	           @ConstructorResult(
+	                   targetClass=WeeklyView.class,
+	               columns={
+	                   @ColumnResult(name="s_name", type = String.class),
+	                   @ColumnResult(name="total_weekly", type = int.class)
+	               }
+	           )
+	       }
+	   )
 //------------------------------------------------------sql query---------------------------------------------------------------------
 //------------------------------------------------------queres for viewdefects/app/severity-------------------------------------------
 @NamedNativeQuery(name = "DefectInstance.getViewDefects", 
@@ -225,7 +238,13 @@ query ="select d.severity, count(*) As defnum,concat(cast(cast( count(*) as floa
 +" where d.id=di.defectid and ((d.severity)=:severityName) and l.id=di.log_fileid and ((l.fdate)=:todayDate)"
 +" group by severity", resultSetMapping = "SeverityPercentSeverityMapping")
 
+//----------------------------------------------------------queryes for weekly---------------------------------------------------------
 
+@NamedNativeQuery(name = "DefectInstance.getWeeklyView",
+query = "select d.severity as s_name,  count(*) As total_weekly"
++ " from defect_instance di, defect d, log_file f"
++ " where di.log_fileid=f.id and d.id=di.defectid and f.fdate BETWEEN :currdate AND :weekbefore"
++" group by d.severity" ,resultSetMapping = "WeeklyViewMapping")
 //--------------------------------------------------------class------------------------------------------------------------------------
 
 public class DefectInstance  {

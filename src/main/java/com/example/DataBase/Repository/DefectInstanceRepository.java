@@ -3,7 +3,6 @@ package com.example.DataBase.Repository;
 import java.util.ArrayList;
 
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +16,7 @@ import com.example.DataBase.domain.SeverityPercentApp;
 import com.example.DataBase.domain.SeverityPercentSeverity;
 import com.example.DataBase.domain.ViewDefects;
 import com.example.DataBase.domain.ViewDefectsApp;
+import com.example.DataBase.domain.WeeklyView;
 
 
 public interface DefectInstanceRepository extends CrudRepository<DefectInstance, Long>{
@@ -53,7 +53,8 @@ public interface DefectInstanceRepository extends CrudRepository<DefectInstance,
 	@Query(nativeQuery = true)
 	ArrayList<SeverityPercentSeverity> getSeverityPercentSeverity(@Param("severityName") String severityName, @Param("todayDate") String todayDate);
 	
-
+	@Query(nativeQuery = true)
+    ArrayList<WeeklyView> getWeeklyView(@Param("currdate") String currdate, @Param("weekbefore") String weekbefore);
 	
 
 	

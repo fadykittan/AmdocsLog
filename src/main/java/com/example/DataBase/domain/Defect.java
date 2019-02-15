@@ -24,6 +24,9 @@ public class Defect {
     @JoinColumn(name = "idsolution")
     private Solution solution;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idapp")
+    private App app;
     
     @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY, mappedBy = "defect")
     private List<DefectInstance> defects;
@@ -33,16 +36,25 @@ public class Defect {
   
     public Defect() {}
 
-    public Defect(String Severity, String errorCode, Solution solution) {
+    public Defect(String Severity, String errorCode, Solution solution, App app) {
       super();
       this.severity = Severity;
       this.errorCode = errorCode;
       this.solution = solution;
+      this.app = app;
     }
 
 //--------------------------------------------------getters and setters-----------------------------------------------------
 	
-    public String getSeverity() {
+    public App getApp() {
+		return app;
+	}
+
+	public void setApp(App app) {
+		this.app = app;
+	}
+
+	public String getSeverity() {
 		return severity;
 	}
 	public void setSeverity(String severity) {
@@ -79,20 +91,5 @@ public class Defect {
 		this.errorCode = errorCode;
 	}
 
-	
-//----------------------------------------------------------@Override-----------------------------------------------------------------
-	
-//	@Override
-//  public boolean equals(Object object)
-//  {
-//      boolean sameSame = false;
-//
-//      if (object != null && object instanceof Defect)
-//      {
-//          sameSame = this.getErrorCode() == ((Defect) object).getErrorCode();
-//      }
-//
-//      return sameSame;
-  //}
 
 }
