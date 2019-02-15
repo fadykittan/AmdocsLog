@@ -197,7 +197,7 @@ query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.de
 
 @NamedNativeQuery(name = "DefectInstance.getAppPercent",
 query = "select ap.name, count(*) As defnum,"
-+" concat(cast(cast( count(*) as float)/ cast((select count(*) from defect_instance di) as float)*100 as decimal(7,2)),'%') AS percentage,"
++" concat(cast(cast( count(*) as float)/ cast((select count(*) from log_file l ,defect_instance di where l.id=di.log_fileid and  ((l.fdate)=:todayDate)) as float)*100 as decimal(7,2)),'%') AS percentage,"
 +" SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Critical' )  THEN 1 ELSE 0 END) AS critical,"
 +" SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Error' )THEN 1 ELSE 0 END) AS error,"
 +" SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Warning') THEN 1 ELSE 0 END) AS warning"
