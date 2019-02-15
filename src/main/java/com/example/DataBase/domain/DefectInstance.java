@@ -243,8 +243,9 @@ query ="select d.severity, count(*) As defnum,concat(cast(cast( count(*) as floa
 @NamedNativeQuery(name = "DefectInstance.getWeeklyView",
 query = "select d.severity as s_name,  count(*) As total_weekly"
 + " from defect_instance di, defect d, log_file f"
-+ " where di.log_fileid=f.id and d.id=di.defectid and f.fdate BETWEEN :currdate AND :weekbefore"
++ " where di.log_fileid=f.id and d.id=di.defectid and f.fdate BETWEEN :weekbefore AND :currdate"
 +" group by d.severity" ,resultSetMapping = "WeeklyViewMapping")
+
 //--------------------------------------------------------class------------------------------------------------------------------------
 
 public class DefectInstance  {

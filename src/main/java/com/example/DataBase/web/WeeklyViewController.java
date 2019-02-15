@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +18,7 @@ public class WeeklyViewController {
 	@Autowired
 	private DefectInstanceRepository repository;
 
-	@RequestMapping("/WeeklyView1")
+	@RequestMapping("/WeeklyView")
 	public ArrayList<WeeklyView> getWeeklyView1() {
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar calendar = Calendar.getInstance();
