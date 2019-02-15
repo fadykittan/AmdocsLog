@@ -106,7 +106,7 @@ import javax.persistence.ColumnResult;
 	        @ConstructorResult(
 	        		targetClass=AppPercentSeverity.class,
 	            columns={
-	                @ColumnResult(name="error_code", type = String.class),
+	                @ColumnResult(name="name", type = String.class),
 	                @ColumnResult(name="defnum", type = BigInteger.class),
 	                @ColumnResult(name="percentage", type = String.class)
 	            }
@@ -212,10 +212,10 @@ query = "select d.error_code, count(*) As defnum,concat(cast(cast( count(*) as f
 +" group by error_code ", resultSetMapping = "AppPercentAppMapping")
 
 @NamedNativeQuery(name = "DefectInstance.getAppPercentSeverity", 
-query = "select d.error_code, count(*) As defnum,concat(cast(cast( count(*) as float)/ cast((select count(*) from defect d, defect_instance di, log_file l where d.id=di.defectid and ((d.severity)=:severityName) and l.id=di.log_fileid and  ((l.fdate)=:todayDate)) as float)*100 as decimal(7,2)),'%') AS percentage"
+query = "select ap.name, count(*) As defnum,concat(cast(cast( count(*) as float)/ cast((select count(*) from defect d, defect_instance di, log_file l where d.id=di.defectid and ((d.severity)=:severityName) and l.id=di.log_fileid and  ((l.fdate)=:todayDate)) as float)*100 as decimal(7,2)),'%') AS percentage"
 +" from app ap, defect_instance di, defect d, log_file l" 
 +" where ap.id=di.appid and ((d.severity)=:severityName) and d.id=di.defectid and l.id=di.log_fileid and  ((l.fdate)=:todayDate)" 
-+" group by error_code ", resultSetMapping = "AppPercentSeverityMapping")
++" group by ap.name ", resultSetMapping = "AppPercentSeverityMapping")
 
 //---------------------------------------------------------queres for severitypercent/app/severity---------------------------------------------------------------------------
 
