@@ -29,7 +29,8 @@ import javax.persistence.ColumnResult;
 	                @ColumnResult(name="type", type = String.class),
 	                @ColumnResult(name="error_code", type = String.class),
 	                @ColumnResult(name="severity", type = String.class),
-	                @ColumnResult(name="sname", type = String.class)
+	                @ColumnResult(name="sname", type = String.class),
+	                @ColumnResult(name="description", type = String.class)
 	            }
 	        )
 	    }
@@ -46,7 +47,8 @@ import javax.persistence.ColumnResult;
 	                @ColumnResult(name="type", type = String.class),
 	                @ColumnResult(name="error_code", type = String.class),
 	                @ColumnResult(name="severity", type = String.class),
-	                @ColumnResult(name="sname", type = String.class)
+	                @ColumnResult(name="sname", type = String.class),
+	                @ColumnResult(name="description", type = String.class)
 	            }
 	        )
 	    }
@@ -63,7 +65,8 @@ import javax.persistence.ColumnResult;
 	                @ColumnResult(name="type", type = String.class),
 	                @ColumnResult(name="error_code", type = String.class),
 	                @ColumnResult(name="severity", type = String.class),
-	                @ColumnResult(name="sname", type = String.class)
+	                @ColumnResult(name="sname", type = String.class),
+	                @ColumnResult(name="description", type = String.class)
 	            }
 	        )
 	    }
@@ -90,11 +93,14 @@ import javax.persistence.ColumnResult;
 		name="AppPercentAppMapping",
 	    classes={
 	        @ConstructorResult(
-	        		targetClass=AppPercentApp.class,
+	        		targetClass=AppPercent.class,
 	            columns={
-	                @ColumnResult(name="error_code", type = String.class),
+	                @ColumnResult(name="name", type = String.class),
 	                @ColumnResult(name="defnum", type = BigInteger.class),
-	                @ColumnResult(name="percentage", type = String.class)
+	                @ColumnResult(name="percentage", type = String.class),
+	                @ColumnResult(name="critical", type = BigInteger.class),
+                    @ColumnResult(name="error", type = BigInteger.class),
+                    @ColumnResult(name="warning", type = BigInteger.class)
 	            }
 	        )
 	    }
@@ -104,11 +110,14 @@ import javax.persistence.ColumnResult;
 		name="AppPercentSeverityMapping",
 	    classes={
 	        @ConstructorResult(
-	        		targetClass=AppPercentSeverity.class,
+	        		targetClass=AppPercent.class,
 	            columns={
 	                @ColumnResult(name="name", type = String.class),
 	                @ColumnResult(name="defnum", type = BigInteger.class),
-	                @ColumnResult(name="percentage", type = String.class)
+	                @ColumnResult(name="percentage", type = String.class),
+	                @ColumnResult(name="critical", type = BigInteger.class),
+                    @ColumnResult(name="error", type = BigInteger.class),
+                    @ColumnResult(name="warning", type = BigInteger.class)
 	            }
 	        )
 	    }
@@ -178,19 +187,22 @@ import javax.persistence.ColumnResult;
 @NamedNativeQuery(name = "DefectInstance.getViewDefects", 
 query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "
 		+"from app ap, defect d, defect_instance di, solution s, log_file l " 
-		+"where ap.id=di.appid and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and ((l.fdate)=:todayDate)"
+		+"where ap.id=di.appid and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and ((l.fdate)=:todayDate) "
+		//+"order by (:sortedBy) desc "
 		+"LIMIT (:limit) OFFSET (:offset)", resultSetMapping = "DefectViewMapping")
 
 @NamedNativeQuery(name = "DefectInstance.getViewDefectsApp", 
 query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "
 + "from app ap, defect d, defect_instance di, solution s , log_file l"
 + " where ((ap.name)=:appName) and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and  ((l.fdate)=:todayDate) "
+//+"order by (:sortedBy) "
 +" LIMIT (:limit) OFFSET (:offset)", resultSetMapping = "DefectViewAppMapping")
 
 @NamedNativeQuery(name = "DefectInstance.getViewDefectsSeverity", 
 query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "
 + "from app ap, defect d, defect_instance di, solution s , log_file l"
 + " where ((d.severity)=:severityName) and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and  ((l.fdate)=:todayDate) "
+//+"order by (:sortedBy) "
 +" LIMIT (:limit) OFFSET (:offset)", resultSetMapping = "DefectViewSeverityMapping")
 
 //------------------------------------------------------queres for apppercent/app/severity(lefttable)-------------------------------------------
@@ -206,13 +218,19 @@ query = "select ap.name, count(*) As defnum,"
 +" group by ap.name",resultSetMapping = "AppPercentMapping")
 
 @NamedNativeQuery(name = "DefectInstance.getAppPercentApp", 
-query = "select d.error_code, count(*) As defnum,concat(cast(cast( count(*) as float)/ cast((select count(*) from app ap, defect_instance di, log_file l where ap.id=di.appid and ((ap.name)=:appName) and l.id=di.log_fileid and  ((l.fdate)=:todayDate)) as float)*100 as decimal(7,2)),'%') AS percentage"  
-+" from app ap, defect_instance di, defect d, log_file l" 
-+" where ap.id=di.appid and ((ap.name)=:appName) and d.id=di.defectid and l.id=di.log_fileid and ((l.fdate)=:todayDate)" 
-+" group by error_code ", resultSetMapping = "AppPercentAppMapping")
+query = "select ap.name, count(*) As defnum,concat(cast(cast( count(*) as float)/ cast((select count(*) from app ap, defect_instance di, log_file l where ap.id=di.appid and ((ap.name)=:appName) and l.id=di.log_fileid and  ((l.fdate)=:todayDate)) as float)*100 as decimal(7,2)),'%') AS percentage, " 
++"SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Critical' )  THEN 1 ELSE 0 END) AS critical, " 
++"SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Error' )THEN 1 ELSE 0 END) AS error, " 
++"SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Warning') THEN 1 ELSE 0 END) AS warning " 
++"from app ap, defect_instance di, defect d, log_file l " 
++"where ap.id=di.appid and ((ap.name)=:appName) and d.id=di.defectid and l.id=di.log_fileid and ((l.fdate)=:todayDate) " 
++"group by ap.name ", resultSetMapping = "AppPercentAppMapping")
 
 @NamedNativeQuery(name = "DefectInstance.getAppPercentSeverity", 
-query = "select ap.name, count(*) As defnum,concat(cast(cast( count(*) as float)/ cast((select count(*) from defect d, defect_instance di, log_file l where d.id=di.defectid and ((d.severity)=:severityName) and l.id=di.log_fileid and  ((l.fdate)=:todayDate)) as float)*100 as decimal(7,2)),'%') AS percentage"
+query = "select ap.name, count(*) As defnum,concat(cast(cast( count(*) as float)/ cast((select count(*) from defect d, defect_instance di, log_file l where d.id=di.defectid and ((d.severity)=:severityName) and l.id=di.log_fileid and  ((l.fdate)=:todayDate)) as float)*100 as decimal(7,2)),'%') AS percentage ,"
++"SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Critical' )  THEN 1 ELSE 0 END) AS critical, " 
++"SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Error' )THEN 1 ELSE 0 END) AS error, " 
++"SUM(CASE WHEN (d.id=di.defectid And d.severity = 'Warning') THEN 1 ELSE 0 END) AS warning " 
 +" from app ap, defect_instance di, defect d, log_file l" 
 +" where ap.id=di.appid and ((d.severity)=:severityName) and d.id=di.defectid and l.id=di.log_fileid and  ((l.fdate)=:todayDate)" 
 +" group by ap.name ", resultSetMapping = "AppPercentSeverityMapping")
@@ -250,7 +268,7 @@ query = "select d.severity as s_name,  count(*) As total_weekly"
 
 public class DefectInstance  {
 
-
+    
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -267,6 +285,12 @@ public class DefectInstance  {
     @JoinColumn(name = "LogFileid")
     private LogFile logfile;
 	
+	private String Idid;
+	private String Ido;
+	
+	
+	
+	
 //-------------------------------------------------constructors-----------------------------------------------------------------
 	
 	public DefectInstance() {}
@@ -280,7 +304,16 @@ public class DefectInstance  {
 
 
 	
-//-------------------------------------------------getters and setters-----------------------------------------------------------
+public DefectInstance(App app, Defect defect, String idid, String ido) {
+
+	super();
+	this.app = app;
+	this.defect = defect;
+	this.setIdid(idid);
+	this.setIdo(ido);
+	}
+
+	//-------------------------------------------------getters and setters-----------------------------------------------------------
 	public long getId() {
 		return id;
 	}
@@ -312,5 +345,23 @@ public class DefectInstance  {
 	public void setLogfile(LogFile logfile) {
 		this.logfile = logfile;
 	}
+
+	public String getIdid() {
+		return Idid;
+	}
+
+	public void setIdid(String idid) {
+		Idid = idid;
+	}
+
+	public String getIdo() {
+		return Ido;
+	}
+
+	public void setIdo(String ido) {
+		Ido = ido;
+	}
+
+
 	
 }

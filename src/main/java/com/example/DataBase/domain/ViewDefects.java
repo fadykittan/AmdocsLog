@@ -12,6 +12,9 @@ public class ViewDefects {
 	String defCode;
 	String severity;
 	String solname;
+	String description;
+	String Idid;
+	String Ido;
 
 //---------------------------------------------------------------getters and setters---------------------------------------------------------
 	public long getSeqid() {
@@ -52,11 +55,33 @@ public class ViewDefects {
 		this.severity = severity;
 	}
 
+	public String getIdid() {
+		return Idid;
+	}
+
+	public void setIdid(String idid) {
+		Idid = idid;
+	}
+
+	public String getIdo() {
+		return Ido;
+	}
+
+	public void setIdo(String ido) {
+		Ido = ido;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 //------------------------------------------------------constructors------------------------------------------------------------------------
 	
 	public ViewDefects() {}
 	
-	public ViewDefects(long seqid,String appName, String appType, String defCode, String severity, String solname) {
+	public ViewDefects(long seqid,String appName, String appType, String defCode, String severity, String solname, String description) {
 		super();
 		this.seqid = seqid;
 		this.appName = appName;
@@ -64,6 +89,7 @@ public class ViewDefects {
 		this.defCode = defCode;
 		this.severity = severity;
 		this.solname = solname;
+		this.description = description;
 	}
 	
 	

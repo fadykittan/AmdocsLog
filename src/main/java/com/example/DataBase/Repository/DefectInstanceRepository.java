@@ -23,13 +23,13 @@ public interface DefectInstanceRepository extends CrudRepository<DefectInstance,
 
 //----------------------------------------------------viewdefects/app/severity----------------------------------------------------------
 	@Query(nativeQuery = true)
-	ArrayList<ViewDefects> getViewDefects(@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
+	ArrayList<ViewDefects> getViewDefects(/*@Param("sortedBy") String sortedBy,*/ @Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
 	
 	@Query(nativeQuery = true)
-	ArrayList<ViewDefectsApp> getViewDefectsApp(@Param("appName") String appName,@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
+	ArrayList<ViewDefectsApp> getViewDefectsApp(/*@Param("sortedBy") String sortedBy,*/ @Param("appName") String appName,@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
 	
 	@Query(nativeQuery = true)
-	ArrayList<ViewDefectsApp> getViewDefectsSeverity(@Param("severityName") String appName,@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
+	ArrayList<ViewDefectsApp> getViewDefectsSeverity(/*@Param("sortedBy") String sortedBy,*/ @Param("severityName") String appName,@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
 	
 //----------------------------------------------------apppercent/app/severity----------------------------------------------------------	
 	
@@ -37,10 +37,10 @@ public interface DefectInstanceRepository extends CrudRepository<DefectInstance,
 	ArrayList<AppPercent> getAppPercent(@Param("todayDate") String todayDate);
 	
 	@Query(nativeQuery = true)
-	ArrayList<AppPercentApp> getAppPercentApp(@Param("appName") String appName, @Param("todayDate") String todayDate);
+	ArrayList<AppPercent> getAppPercentApp(@Param("appName") String appName, @Param("todayDate") String todayDate);
 	
 	@Query(nativeQuery = true)
-	ArrayList<AppPercentSeverity> getAppPercentSeverity(@Param("severityName") String severityName, @Param("todayDate") String todayDate);
+	ArrayList<AppPercent> getAppPercentSeverity(@Param("severityName") String severityName, @Param("todayDate") String todayDate);
 	
 //----------------------------------------------------severitypercent/app/severity----------------------------------------------------------	
 	
