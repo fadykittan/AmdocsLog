@@ -40,8 +40,8 @@ public class ViewDefectController {
 	
 
 
-	@RequestMapping("/ViewDefects/{sortedBy}/{pageSize}/{PageNumber}")
-	public ArrayList<ViewDefects> getViewDefects(@PathVariable("sortedBy") String sortedBy, @PathVariable("pageSize") int pageSize,
+	@RequestMapping("/ViewDefects/{pageSize}/{PageNumber}")
+	public ArrayList<ViewDefects> getViewDefects(/*@PathVariable("sortedBy") String sortedBy,*/ @PathVariable("pageSize") int pageSize,
 			@PathVariable("PageNumber") int pageNumber) throws ServletException {
 
 		// SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
@@ -52,8 +52,8 @@ public class ViewDefectController {
 				offset);
 	}
 
-	@RequestMapping("/ViewDefectsApp/{appName}/{sortedBy}/{pageSize}/{PageNumber}")
-	public ArrayList<ViewDefectsApp> getViewDefectsApp(@PathVariable("sortedBy") String sortedBy, @PathVariable String appName,
+	@RequestMapping("/ViewDefectsApp/{appName}/{pageSize}/{PageNumber}")
+	public ArrayList<ViewDefectsApp> getViewDefectsApp(/*@PathVariable("sortedBy") String sortedBy,*/ @PathVariable String appName,
 			@PathVariable("pageSize") int pageSize, @PathVariable("PageNumber") int pageNumber)
 			throws ServletException {
 
@@ -66,8 +66,8 @@ public class ViewDefectController {
 
 	}
 
-	@RequestMapping("/ViewDefectsSeverity/{severityName}/{sortedBy}/{pageSize}/{PageNumber}")
-	public ArrayList<ViewDefectsApp> getViewDefectsSeverity(@PathVariable("sortedBy") String sortedBy, @PathVariable String severityName,
+	@RequestMapping("/ViewDefectsSeverity/{severityName}/{pageSize}/{PageNumber}")
+	public ArrayList<ViewDefectsApp> getViewDefectsSeverity(/*@PathVariable("sortedBy") String sortedBy,*/ @PathVariable String severityName,
 			@PathVariable("pageSize") int pageSize, @PathVariable("PageNumber") int pageNumber)
 			throws ServletException {
 
