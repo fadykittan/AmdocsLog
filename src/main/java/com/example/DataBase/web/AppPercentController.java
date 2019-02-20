@@ -27,7 +27,7 @@ public class AppPercentController {
 	}
 	
 	@RequestMapping("/AppPercentApp/{appName}")
-	public ArrayList<AppPercent> getAppPercentApp(@PathVariable String appName) {
+	public ArrayList<AppPercentApp> getAppPercentApp(@PathVariable String appName) {
 		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		return repository.getAppPercentApp(appName, /*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
 	}

@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.example.DataBase.Mapping.AppPercent;
-
+import com.example.DataBase.Mapping.AppPercentApp;
 import com.example.DataBase.Mapping.SeverityPercent;
 import com.example.DataBase.Mapping.SeverityPercentApp;
 import com.example.DataBase.Mapping.SeverityPercentSeverity;
@@ -46,7 +46,7 @@ public interface DefectInstanceRepository extends CrudRepository<DefectInstance,
 	ArrayList<AppPercent> getAppPercent(@Param("todayDate") String todayDate);
 
 	@Query(nativeQuery = true)
-	ArrayList<AppPercent> getAppPercentApp(@Param("appName") String appName, @Param("todayDate") String todayDate);
+	ArrayList<AppPercentApp> getAppPercentApp(@Param("appName") String appName, @Param("todayDate") String todayDate);
 
 	@Query(nativeQuery = true)
 	ArrayList<AppPercent> getAppPercentSeverity(@Param("severityName") String severityName,

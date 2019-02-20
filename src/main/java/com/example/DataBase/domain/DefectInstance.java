@@ -10,6 +10,7 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.SqlResultSetMapping;
 
 import com.example.DataBase.Mapping.AppPercent;
+import com.example.DataBase.Mapping.AppPercentApp;
 import com.example.DataBase.Mapping.SeverityPercent;
 import com.example.DataBase.Mapping.SeverityPercentApp;
 import com.example.DataBase.Mapping.SeverityPercentSeverity;
@@ -104,7 +105,7 @@ import javax.persistence.ColumnResult;
 		name="AppPercentAppMapping",
 	    classes={
 	        @ConstructorResult(
-	        		targetClass=AppPercent.class,
+	        		targetClass=AppPercentApp.class,
 	            columns={
 	                @ColumnResult(name="error_code", type = String.class),
 	                @ColumnResult(name="defnum", type = BigInteger.class),

@@ -7,7 +7,9 @@ public class AppPercentApp {
 	private String errorCode;
 	private BigInteger defnum;
 	private String percentage;
-
+	private BigInteger critical;
+	private BigInteger error;
+	private BigInteger warning;
 //-------------------------------------------------getters and setters-------------------------------------------------------------
 
 	public String geterrorCode() {
@@ -39,11 +41,40 @@ public class AppPercentApp {
 	public AppPercentApp() {
 	}
 
-	public AppPercentApp(String errorCode, BigInteger defnum, String percentage) {
+
+
+	public AppPercentApp(String errorCode, BigInteger defnum, String percentage, BigInteger critical, BigInteger error,
+			BigInteger warning) {
 		super();
 		this.errorCode = errorCode;
 		this.defnum = defnum;
 		this.percentage = percentage;
+		this.critical = critical;
+		this.error = error;
+		this.warning = warning;
+	}
 
+	public BigInteger getCritical() {
+		return critical;
+	}
+
+	public void setCritical(BigInteger critical) {
+		this.critical = critical;
+	}
+
+	public BigInteger getError() {
+		return error;
+	}
+
+	public void setError(BigInteger error) {
+		this.error = error;
+	}
+
+	public BigInteger getWarning() {
+		return warning;
+	}
+
+	public void setWarning(BigInteger warning) {
+		this.warning = warning;
 	}
 }
