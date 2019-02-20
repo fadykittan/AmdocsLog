@@ -10,11 +10,13 @@ import java.util.Scanner;
 import com.example.DataBase.Repository.AppRepository;
 import com.example.DataBase.Repository.DefectInstanceRepository;
 import com.example.DataBase.Repository.DefectRepository;
+//import com.example.DataBase.Repository.DidoItRepository;
 import com.example.DataBase.Repository.LogFileRepository;
 import com.example.DataBase.Repository.SolutionRepository;
 import com.example.DataBase.domain.App;
 import com.example.DataBase.domain.Defect;
 import com.example.DataBase.domain.DefectInstance;
+//import com.example.DataBase.domain.DidoIt;
 import com.example.DataBase.domain.LogFile;
 import com.example.DataBase.domain.Solution;
 
@@ -33,7 +35,7 @@ public class LogFileRouting {
 //----------------------------------------------------------controller methods-----------------------------------------------------------
 
 	public void SearchDefects(File file, String searchStr, AppRepository appRepo, DefectRepository defRepo,
-			LogFileRepository logRepo, DefectInstanceRepository definsRepo, SolutionRepository solRepo) throws Exception
+			LogFileRepository logRepo, DefectInstanceRepository definsRepo, SolutionRepository solRepo/*, DidoItRepository didRepo*/) throws Exception
 
 	{
 
@@ -48,9 +50,10 @@ public class LogFileRouting {
 				timeformat.format(Calendar.getInstance().getTime()));
 
 		Solution tempsol = new Solution();
-
 		tempsol = solRepo.findById((long) 3116).orElse(null);
 
+		//DidoIt didoit = new DidoIt("empty","empty");
+		//didRepo.save(didoit);
 		while (scanFile.hasNext()) {
 
 			Defect tempDefect = new Defect();
@@ -89,6 +92,7 @@ public class LogFileRouting {
 
 					tempDefectInstance.setLogfile(templogfile);
 
+					//tempDefectInstance.setDidoit(didoit);
 					// check if app exist in database
 					appList = appRepo.checkAppexist(tempApp.getName(), tempApp.getType());
 					if (appList.isEmpty()) {

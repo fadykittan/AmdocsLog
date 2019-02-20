@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.DataBase.Mapping.SeverityPercent;
+import com.example.DataBase.Mapping.SeverityPercentApp;
+import com.example.DataBase.Mapping.SeverityPercentSeverity;
 import com.example.DataBase.Repository.DefectInstanceRepository;
-import com.example.DataBase.domain.SeverityPercent;
-import com.example.DataBase.domain.SeverityPercentApp;
-import com.example.DataBase.domain.SeverityPercentSeverity;
 
 @RestController
 public class SeverityPercentController {

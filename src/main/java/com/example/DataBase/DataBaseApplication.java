@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import com.example.DataBase.Repository.AppRepository;
 import com.example.DataBase.Repository.DefectInstanceRepository;
 import com.example.DataBase.Repository.DefectRepository;
+//import com.example.DataBase.Repository.DidoItRepository;
 import com.example.DataBase.Repository.LogFileRepository;
 import com.example.DataBase.Repository.SolutionRepository;
 import com.example.DataBase.Routing.LogFileRouting;
@@ -20,7 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringBootApplication
 public class DataBaseApplication {
-	  @Autowired 
+
+	@Autowired 
   private AppRepository appRepository;
 
   @Autowired 
@@ -34,6 +36,9 @@ public class DataBaseApplication {
 	
   @Autowired 
   private SolutionRepository solutionRepository;
+  
+//  @Autowired 
+//  private DidoItRepository didoItRepository;
 	  
 	public static void main(String[] args) {
 		SpringApplication.run(DataBaseApplication.class, args);
@@ -45,7 +50,7 @@ public class DataBaseApplication {
     	   String searchStr = "Caused by";
    			File file = new File("CMServer.20170924_1556.log");
    			LogFileRouting routingtotables = new LogFileRouting();
-   			routingtotables.SearchDefects(file, searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
+   			routingtotables.SearchDefects(file, searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository/*, didoItRepository*/);
    			
    		
        };

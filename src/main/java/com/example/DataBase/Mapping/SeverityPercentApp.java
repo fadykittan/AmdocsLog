@@ -1,9 +1,8 @@
-package com.example.DataBase.domain;
+package com.example.DataBase.Mapping;
 
 import java.math.BigInteger;
 
-public class SeverityPercent {
-
+public class SeverityPercentApp {
 	private String severity;
 	private BigInteger defnum;
 	private String percentage;
@@ -33,9 +32,9 @@ public class SeverityPercent {
 
 
 //-----------------------------------------------------constructors------------------------------------------------------------------
-	public SeverityPercent() {}
+	public SeverityPercentApp() {}
 	
-	public SeverityPercent(String severity, BigInteger defnum, String percentage) {
+	public SeverityPercentApp(String severity, BigInteger defnum, String percentage) {
 		super();
 		this.severity = severity;
 		this.defnum = defnum;

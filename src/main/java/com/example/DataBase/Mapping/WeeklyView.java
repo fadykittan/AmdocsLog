@@ -1,4 +1,4 @@
-package com.example.DataBase.domain;
+package com.example.DataBase.Mapping;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

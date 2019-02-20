@@ -1,4 +1,4 @@
-package com.example.DataBase.domain;
+package com.example.DataBase.Mapping;
 
 public class ViewDefectsApp {
 
@@ -11,8 +11,15 @@ public class ViewDefectsApp {
 	String defCode;
 	String severity;
 	String solname;
+	String description;
 
-//---------------------------------------------------------------getters and setters---------------------------------------------------------
+public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	//---------------------------------------------------------------getters and setters---------------------------------------------------------
 	public long getSeqid() {
 		return seqid;
 	}
@@ -55,7 +62,7 @@ public class ViewDefectsApp {
 	
 	public ViewDefectsApp() {}
 	
-	public ViewDefectsApp(long seqid,String appName, String appType, String defCode, String severity, String solname) {
+	public ViewDefectsApp(long seqid,String appName, String appType, String defCode, String severity, String solname, String description) {
 		super();
 		this.seqid = seqid;
 		this.appName = appName;
@@ -63,6 +70,7 @@ public class ViewDefectsApp {
 		this.defCode = defCode;
 		this.severity = severity;
 		this.solname = solname;
+		this.description = description;
 	}
 }
 	

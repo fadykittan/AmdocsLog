@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.DataBase.Mapping.WeeklyView;
 import com.example.DataBase.Repository.DefectInstanceRepository;
-
-import com.example.DataBase.domain.WeeklyView;
 
 @RestController
 public class WeeklyViewController {
