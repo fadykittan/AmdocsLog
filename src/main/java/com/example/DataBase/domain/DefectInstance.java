@@ -213,7 +213,7 @@ query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.de
 @NamedNativeQuery(name = "DefectInstance.getViewDefectsSeverity", 
 query = "select di.id, ap.name, ap.type, d.error_code, d.severity, s.sname, s.description "
 + "from app ap, defect d, defect_instance di, solution s , log_file l"
-+ " where ((d.severity)=:severityName) and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and  ((l.fdate)=:todayDate) "
++ " where ((d.severity)=:severityName) and di.appid=ap.id and d.id=di.defectid and s.id=d.idsolution and l.id=di.log_fileid and  ((l.fdate)=:todayDate) "
 //+"order by (:sortedBy) "
 +" LIMIT (:limit) OFFSET (:offset)", resultSetMapping = "DefectViewSeverityMapping")
 
