@@ -48,11 +48,11 @@ public class ViewDefectController {
 	public ArrayList<ViewDefects> getViewDefects(/*@PathVariable("sortedBy") String sortedBy,*/ @PathVariable("pageSize") int pageSize,
 			@PathVariable("PageNumber") int pageNumber) throws ServletException {
 
-		// SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		int limit = pageSize;
 		int offset = pageNumber - 1;
 		offset = offset * limit;
-		return repository.getViewDefects(/*sortedBy,  dateformat.format(Calendar.getInstance().getTime()) */"2019-02-11", limit,
+		return repository.getViewDefects(/*sortedBy,*/  dateformat.format(Calendar.getInstance().getTime()) , limit,
 				offset);
 	}
 
@@ -61,12 +61,12 @@ public class ViewDefectController {
 			@PathVariable("pageSize") int pageSize, @PathVariable("PageNumber") int pageNumber)
 			throws ServletException {
 
-		// SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		int limit = pageSize;
 		int offset = pageNumber - 1;
 		offset = offset * limit;
 		return repository.getViewDefectsApp(/*sortedBy,*/ appName,
-				/* dateformat.format(Calendar.getInstance().getTime()) */"2019-02-11", limit, offset);
+				 dateformat.format(Calendar.getInstance().getTime()) , limit, offset);
 
 	}
 
@@ -75,12 +75,12 @@ public class ViewDefectController {
 			@PathVariable("pageSize") int pageSize, @PathVariable("PageNumber") int pageNumber)
 			throws ServletException {
 
-		// SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		int limit = pageSize;
 		int offset = pageNumber - 1;
 		offset = offset * limit;
 		return repository.getViewDefectsSeverity(/*sortedBy,*/ severityName,
-				/* dateformat.format(Calendar.getInstance().getTime()) */"2019-02-11", limit, offset);
+				 dateformat.format(Calendar.getInstance().getTime()) , limit, offset);
 
 	}
 	

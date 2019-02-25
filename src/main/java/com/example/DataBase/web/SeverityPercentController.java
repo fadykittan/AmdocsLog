@@ -1,6 +1,8 @@
 package com.example.DataBase.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,19 +22,19 @@ public class SeverityPercentController {
 
 	@RequestMapping("/SeverityPercent")
 	public ArrayList<SeverityPercent> getSeverityPercent() {
-		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-		return repository.getSeverityPercent(/*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getSeverityPercent(dateformat.format(Calendar.getInstance().getTime()));
 	}
 	
 	@RequestMapping("/SeverityPercentApp/{appName}")
 	public ArrayList<SeverityPercentApp> getSeverityPercentApp(@PathVariable String appName) {
-		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-		return repository.getSeverityPercentApp(appName,/*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getSeverityPercentApp(appName,dateformat.format(Calendar.getInstance().getTime()));
 	}
 	
 	@RequestMapping("/SeverityPercentSeverity/{severityName}")
 	public ArrayList<SeverityPercentSeverity> getSeverityPercentSeverity(@PathVariable String severityName) {
-		//SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-		return repository.getSeverityPercentSeverity(severityName, /*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11");
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return repository.getSeverityPercentSeverity(severityName, dateformat.format(Calendar.getInstance().getTime()));
 	}
 }
