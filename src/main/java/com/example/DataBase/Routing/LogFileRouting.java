@@ -108,7 +108,7 @@ public class LogFileRouting {
 
 					int redDig = Character.getNumericValue(tempDefect.getErrorCode().charAt(typePosition));
 					// level of defect (1-3) critical, (4-6) error, more than 6 warning
-					if (1 <= redDig && redDig <= 3) {
+					if (0 <= redDig && redDig <= 3) {
 						tempDefect.setSeverity("Critical");
 
 					}
