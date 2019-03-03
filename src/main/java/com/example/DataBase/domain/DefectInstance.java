@@ -1,5 +1,9 @@
 package com.example.DataBase.domain;
 
+import java.math.BigInteger;
+
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +15,7 @@ import javax.persistence.SqlResultSetMapping;
 
 import com.example.DataBase.Mapping.AppPercent;
 import com.example.DataBase.Mapping.AppPercentApp;
+import com.example.DataBase.Mapping.SeverityAppPercent;
 import com.example.DataBase.Mapping.SeverityPercent;
 import com.example.DataBase.Mapping.SeverityPercentApp;
 import com.example.DataBase.Mapping.SeverityPercentSeverity;
@@ -18,13 +23,30 @@ import com.example.DataBase.Mapping.ViewDefects;
 import com.example.DataBase.Mapping.ViewDefectsApp;
 import com.example.DataBase.Mapping.WeeklyView;
 
-import javax.persistence.ConstructorResult;
-
-import java.math.BigInteger;
-
-import javax.persistence.ColumnResult;
-
 @Entity
+//----------------------------------------------------------API for Action----------------
+@SqlResultSetMapping(
+		name="AppSeverityPercentMapping",
+	    classes={
+	        @ConstructorResult(
+	        		targetClass=SeverityAppPercent.class,
+	            columns={
+	                @ColumnResult(name="percentage", type = String.class)
+	            }
+	        )
+	    }
+	)
+
+
+
+@NamedNativeQuery(name = "DefectInstance.getSeverityAppPercentDate", 
+query = "select concat(cast(cast( count(*) as float)/ cast((select count(*)  "
+		+ " from defect_instance di) as float)*100 as decimal(7,2)),'%') AS percentage  from "
+		+ "defect_instance aa, app bb, defect cc , log_file dd " // tables
+		+ " where aa.log_fileid=dd.id and aa.appid=bb.id and aa.defectid=cc.id and dd.fdate=:fdate" +" and " //connect
+		+ "bb.name=:appName and cc.severity=:severity group by severity"  //param input
+, resultSetMapping = "AppSeverityPercentMapping")
+
 
 //------------------------------------------------------sql result mapping------------------------------------------------------------
 //-----------------------------------------------------mapping for view defects------------------------------------------------------

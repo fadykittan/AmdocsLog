@@ -8,13 +8,13 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.DataBase.Mapping.AppPercent;
 import com.example.DataBase.Mapping.AppPercentApp;
+import com.example.DataBase.Mapping.SeverityAppPercent;
 import com.example.DataBase.Mapping.SeverityPercent;
 import com.example.DataBase.Mapping.SeverityPercentApp;
 import com.example.DataBase.Mapping.SeverityPercentSeverity;
 import com.example.DataBase.Mapping.ViewDefects;
 import com.example.DataBase.Mapping.ViewDefectsApp;
 import com.example.DataBase.Mapping.WeeklyView;
-
 import com.example.DataBase.domain.DefectInstance;
 
 public interface DefectInstanceRepository extends CrudRepository<DefectInstance, Long> {
@@ -70,4 +70,23 @@ public interface DefectInstanceRepository extends CrudRepository<DefectInstance,
 	@Query(nativeQuery = true)
 	ArrayList<WeeklyView> getWeeklyView(@Param("currdate") String currdate, @Param("weekbefore") String weekbefore);
 
+	
+	
+	
+//--------------------------------------------------API for Action----------------------------
+	
+	
+	@Query(nativeQuery = true)
+	ArrayList<SeverityAppPercent> getSeverityAppPercentDate(@Param("appName") String appName ,@Param("severity") String severity,@Param("fdate") String fdate);
+
+//	@Query(nativeQuery = true)
+//	ArrayList<SeverityAppPercent> getSeverityAppPercent(@Param("appName") String appName ,@Param("severity") String severity);
+//
+//
+//	@Query(nativeQuery = true)
+//	ArrayList<SeverityAppPercent> getSeveritiesAppPercent(@Param("appName") String appName);
+	
+	
+	
+	
 }
